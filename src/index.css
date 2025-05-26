@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@plugin "tailwindcss-debug-screens";
+
+body {
+    @apply bg-black flex items-center justify-center min-h-screen debug-screens;
+}
+
+
+@keyframes title-animation {
+    0% {
+        transform: rotateX(20deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+.title-animation {
+    animation-name: title-animation;
+    animation-duration: 1s;
+    animation-delay: 0.3s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    transform: rotateX(20deg);
+
+}
