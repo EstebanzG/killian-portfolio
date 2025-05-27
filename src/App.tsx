@@ -11,7 +11,7 @@ function App() {
     <>
       <Header />
       <div className={"h-screen mb-5 flex flex-col justify-between"}>
-        <nav className={"flex gap-5"}>
+        <nav className={"flex gap-5 max-w-screen overflow-hidden"}>
           {Object.values(Menu).map((menuItem) => (
             <Button
               key={menuItem}

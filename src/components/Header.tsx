@@ -63,10 +63,10 @@ export function Header() {
   }, []);
 
   return (
-    <div className="h-[150vh] pb-[25dvh] flex justify-center" ref={container}>
+    <div className="h-[150dvh] pb-[25dvh] flex justify-center" ref={container}>
       <div
         ref={div}
-        className="sticky top-[7.5dvh] outline outline-white h-[85dvh] w-auto aspect-[1/2] sm:aspect-[3/2]"
+        className="sticky top-[7.5dvh] outline outline-white h-[85dvh] w-auto max-w-screen aspect-[1/2] sm:aspect-[3/2]"
       >
         <img src="/images/portrait.png" alt="background" className="w-full h-full object-cover" />
 
