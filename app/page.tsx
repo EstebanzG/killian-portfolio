@@ -1,23 +1,32 @@
-import {Header} from "./components/Header.tsx";
-import {Footer} from "./components/Footer.tsx";
-import {useState} from "react";
-import {Menu} from "./Menu.ts";
-import Button from "./components/Button.tsx";
+"use client"
+import { useEffect, useState } from "react";
+import Button from "@/components/Button";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 
+enum Menu {
+  PHOTO = "Photographie",
+  VIDEO = "Vidéo",
+  CONTACT = "Contact",
+}
 
-function App() {
+export default function Home() {
   const [selectedMenu, setSelectedMenu] = useState<Menu>(Menu.PHOTO);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
-  const photos: Record<string, { default: string }> = import.meta.glob("/src/assets/photos/*.png", { eager: true });
-  const imageUrls = Object.values(photos).map((img) => img.default);
+  useEffect(() => {
+    fetch("/api/photos")
+      .then(res => res.json())
+      .then(setImageUrls);
+  }, []);
 
   return (
     <>
-      <Header/>
-      <div className={"mb-5 flex flex-col justify-between w-full p-5 text-white"}>
+      <Header />
+      <div className="mb-5 flex flex-col justify-between w-full p-5 text-white">
         <nav className="sticky top-5 z-10 mix-blend-difference">
           <div className="flex justify-between md:hidden">
-            {Object.values(Menu).map((menuItem) => (
+            {Object.values(Menu).map(menuItem => (
               <button
                 key={menuItem}
                 className={`${selectedMenu === menuItem ? "underline" : ""}`}
@@ -28,7 +37,7 @@ function App() {
             ))}
           </div>
           <div className="hidden md:flex md:gap-5">
-            {Object.values(Menu).map((menuItem) => (
+            {Object.values(Menu).map(menuItem => (
               <Button
                 key={menuItem}
                 isSelected={selectedMenu === menuItem}
@@ -41,22 +50,20 @@ function App() {
         </nav>
 
         {selectedMenu === Menu.PHOTO && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-10">
-            {imageUrls.map((imageUrl, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 py-10">
+            {imageUrls.map((url, index) => (
               <img
                 key={index}
-                src={imageUrl}
-                alt={`Photo ${index + 1}`}
-                className="w-full h-[300px] object-cover"
+                src={url}
+                alt={`Image ${index}`}
+                className="h-[300px] w-full object-cover"
               />
             ))}
           </div>
         )}
 
-        <Footer/>
+        <Footer />
       </div>
     </>
   );
 }
-
-export default App;
