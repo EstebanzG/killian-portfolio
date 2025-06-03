@@ -1,8 +1,11 @@
 "use client"
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Button from "@/components/Button";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import {Footer} from "@/components/Footer";
+import {Header} from "@/components/Header";
+import Modal from "@/components/Modal";
+import {Photo} from "@/common/photos";
+import {PhotoCard} from "@/components/PhotoCard";
 
 enum Menu {
   PHOTO = "Photographie",
@@ -12,17 +15,28 @@ enum Menu {
 
 export default function Home() {
   const [selectedMenu, setSelectedMenu] = useState<Menu>(Menu.PHOTO);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<Photo | null>(null);
 
   useEffect(() => {
     fetch("/api/photos")
       .then(res => res.json())
-      .then(setImageUrls);
+      .then(setPhotos);
   }, []);
+
+  const openModal = (photo: Photo) => {
+    setSelectedImage(photo);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <>
-      <Header />
+      <Header/>
       <div className="mb-5 flex flex-col justify-between w-full p-5 text-white">
         <nav className="sticky top-5 z-10 mix-blend-difference">
           <div className="flex justify-between md:hidden">
@@ -51,19 +65,21 @@ export default function Home() {
 
         {selectedMenu === Menu.PHOTO && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 py-10">
-            {imageUrls.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt={`Image ${index}`}
-                className="h-[300px] w-full object-cover"
-              />
-            ))}
+            {photos.map((photo, index) =>
+              <PhotoCard photo={photo} onClick={() => openModal(photo)} key={index}/>
+            )}
           </div>
         )}
 
-        <Footer />
+        <Footer/>
       </div>
+
+      {selectedImage && modalOpen && (
+        <Modal
+          onClose={closeModal}
+          photo={selectedImage}
+        />
+      )}
     </>
   );
 }
