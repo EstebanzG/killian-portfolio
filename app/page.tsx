@@ -3,9 +3,12 @@ import {useEffect, useState} from "react";
 import Button from "@/components/Button";
 import {Footer} from "@/components/Footer";
 import {Header} from "@/components/Header";
-import Modal from "@/components/Modal";
 import {Photo} from "@/common/photos";
 import {PhotoCard} from "@/components/PhotoCard";
+import Modal from "@/components/Modal";
+import {IoMailOutline} from "react-icons/io5";
+import {FiPhone} from "react-icons/fi";
+import {FaInstagram} from "react-icons/fa";
 
 enum Menu {
   PHOTO = "Photographie",
@@ -68,6 +71,30 @@ export default function Home() {
             {photos.map((photo, index) =>
               <PhotoCard photo={photo} onClick={() => openModal(photo)} key={index}/>
             )}
+          </div>
+        )}
+
+        {selectedMenu === Menu.VIDEO && (
+          <div className="flex flex-col justify-center h-[20vh]">
+            <h2 className="text-2xl mb-5">Vidéo à venir</h2>
+            <p className="text-lg">Restez connecté pour plus d'informations.</p>
+          </div>
+        )}
+
+        {selectedMenu === Menu.CONTACT && (
+          <div className="flex flex-col py-10 md:text-4xl font-bold">
+            <a className={"flex items-center gap-2"} href="mailto:killiangomez@outlook.fr">
+              <span className={'w-[7%] md:w-[3%] flex justify-end'}><IoMailOutline size={40}/></span>
+              killiangomez@outlook.fr
+            </a>
+            <a className={"flex items-center gap-2"} href="tel:+33627896570">
+              <span className={'w-[7%] md:w-[3%] flex justify-end'}><FiPhone size={30}/></span>
+              +33 (0)6 27 89 65 70
+            </a>
+            <a className={"flex items-center gap-2"} href="https://www.instagram.com/killian.gmz/">
+              <span className={'w-[7%] md:w-[3%] flex justify-end'}><FaInstagram size={32}/></span>
+              killian.gmz
+            </a>
           </div>
         )}
 
