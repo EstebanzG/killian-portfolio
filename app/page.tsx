@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <>
       <Header/>
-      <div className="mb-5 flex flex-col justify-between w-full p-5 text-white">
+      <div className="mb-5 flex flex-col justify-between w-full p-5 text-white max-w-screen-2xl">
         <nav className="sticky top-5 z-10 mix-blend-difference">
           <div className="flex justify-between md:hidden">
             {Object.values(Menu).map(menuItem => (
@@ -67,7 +67,7 @@ export default function Home() {
         </nav>
 
         {selectedMenu === Menu.PHOTO && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 py-10">
             {photos.map((photo, index) =>
               <PhotoCard photo={photo} onClick={() => openModal(photo)} key={index}/>
             )}
