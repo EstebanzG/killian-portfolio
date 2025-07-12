@@ -14,6 +14,8 @@ import VideoModal from "@/components/VideoModal";
 import {VideoCard} from "@/components/VideoCard";
 import PhotoModal from "@/components/PhotoModal";
 import Loader from "@/components/loader";
+import { Analytics } from "@vercel/analytics/next"
+
 
 enum Menu {
   PHOTO = "Photographie",
@@ -65,6 +67,7 @@ export default function Home() {
 
   return (
     <>
+      <Analytics/>
       <Header/>
 
       <div className="mb-5 flex flex-col justify-between w-full p-5 text-white max-w-screen-2xl mx-auto">
@@ -118,20 +121,20 @@ export default function Home() {
         )}
 
         {selectedMenu === Menu.CONTACT && (
-          <div className="flex flex-col gap-4 py-10 md:text-4xl font-bold">
-            <a className="flex items-center gap-2" href="mailto:killiangomez@outlook.fr">
+          <div className="flex flex-col gap-4 py-10 md:text-2xl font-semibold">
+            <a className="flex items-end gap-2" href="mailto:killiangomez@outlook.fr">
               <span className="w-[7%] md:w-[3%] flex justify-end">
                 <IoMailOutline size={40}/>
               </span>
               killiangomez@outlook.fr
             </a>
-            <a className="flex items-center gap-2" href="tel:+33627896570">
+            <a className="flex items-end gap-2" href="tel:+33627896570">
               <span className="w-[7%] md:w-[3%] flex justify-end">
                 <FiPhone size={30}/>
               </span>
               +33 (0)6 27 89 65 70
             </a>
-            <a className="flex items-center gap-2" href="https://www.instagram.com/killian.gmz/">
+            <a className="flex items-end gap-2" href="https://www.instagram.com/killian.gmz/">
               <span className="w-[7%] md:w-[3%] flex justify-end">
                 <FaInstagram size={32}/>
               </span>
