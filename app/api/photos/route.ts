@@ -1,5 +1,5 @@
 import {supabase} from "@/lib/supabase";
-import {Photo} from "@/common/photos";
+import {Photo} from "@/types/photos";
 
 export async function GET() {
   const {data, error} = await supabase.storage
@@ -15,7 +15,7 @@ export async function GET() {
   }
 
   const photos: Photo[] = data
-    .filter(file => file.name.endsWith(".png") || file.name.endsWith(".jpg"))
+    .filter(file => file.name.toLocaleLowerCase().endsWith(".png") || file.name.toLocaleLowerCase().endsWith(".jpg"))
     .map(file => {
       const fullUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${file.name}`;
       return {
